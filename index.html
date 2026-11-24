@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!-- =====================================================================
+     PawPals – Local Pet Assistance Network
+     Page  : index.html (HOME)
+     Team  : Pixel Pioneers (K3P26YG) – CSE326 Internet Programming
+             Prince Saini (12625059) · Bhumi (12629711) · Subham Mahapatra (12620150)
+     ---------------------------------------------------------------------
+     All pages share:  style.css (design)  +  script.js (behaviour)
+     The <header> and <footer> are copied on every page – if you edit
+     the menu, change it on all 5 pages.
+     ===================================================================== -->
+<html lang="en">
+<head>
+  <!-- Character set + mobile-friendly viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A verified community network for non-medical pet help: walking, fostering, transport and pet sitting.">
+  <title>PawPals – Local Pet Assistance Network</title>
+  <!-- Google Font "Poppins" (falls back to Arial when offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<!-- data-page tells script.js which page code to run -->
+<body data-page="home">
+
+  <!-- ===== HEADER / NAVIGATION (same on every page) ===== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">Paw<span>Pals</span></a>
+      <nav aria-label="Main menu">
+        <ul class="nav-list">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="pets.html">Pets</a></li>
+          <li><a href="requests.html">Requests</a></li>
+          <li><a href="volunteers.html">Volunteers</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== HERO: text on the left, photo on the right (CSS Grid) ===== -->
+    <section class="hero">
+      <div class="container">
+        <div>
+          <span class="hero-pill">✔ Verified community network</span>
+          <h1>Trusted <mark>local help</mark> for your pets</h1>
+          <p>
+            Going out of town? Stuck at work? PawPals connects pet owners with
+            <strong>verified neighbours</strong> for walking, fostering, transport
+            and pet sitting.
+          </p>
+          <div class="hero-buttons">
+            <a href="requests.html" class="btn btn-accent">Ask for help</a>
+            <a href="volunteers.html" class="btn btn-outline">Become a volunteer</a>
+          </div>
+          <p class="hero-note">🩺 Non-medical help only. For illness or injury, please visit a vet.</p>
+        </div>
+
+        <!-- figure = an image with its own meaning (Unit 2 semantic tag) -->
+        <figure class="hero-photo">
+          <img src="hero-dog.jpg" alt="Golden retriever puppy holding a yellow tulip">
+          <!-- floating card is placed with position: absolute -->
+          <figcaption class="float-card">
+            <strong>🐾 Help nearby</strong>
+            Volunteers in your area
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===== LIVE STATISTICS (numbers filled in by script.js → initHome) ===== -->
+    <section class="stats">
+      <div class="container grid">
+        <div class="card stat"><strong id="stat-pets">0</strong><span>Pets registered</span></div>
+        <div class="card stat"><strong id="stat-volunteers">0</strong><span>Verified volunteers</span></div>
+        <div class="card stat"><strong id="stat-open">0</strong><span>Open requests</span></div>
+        <div class="card stat"><strong id="stat-done">0</strong><span>Requests completed</span></div>
+      </div>
+    </section>
+
+    <!-- ===== SERVICES: three photo cards ===== -->
+    <section class="section">
+      <div class="container center">
+        <span class="eyebrow">What we help with</span>
+        <h2>Everyday care, from people nearby</h2>
+        <p class="section-intro">Pick the kind of help your pet needs. Every helper is checked by our admin team first.</p>
+
+        <div class="grid" style="text-align:left;">
+          <!-- The extra class (walk / foster / transport) picks the emoji in CSS -->
+          <article class="card service-card walk">
+            <div class="card-photo"><img src="walking-dog.jpg" alt="Happy beagle outdoors"></div>
+            <h3>Walking</h3>
+            <p>Busy day? A local volunteer takes your dog out for a walk and some fresh air.</p>
+          </article>
+          <article class="card service-card foster">
+            <div class="card-photo"><img src="cat.jpg" alt="Black and white cat resting on a shelf"></div>
+            <h3>Fostering &amp; pet sitting</h3>
+            <p>Travelling? Your pet stays safe and loved at a verified volunteer's home.</p>
+          </article>
+          <article class="card service-card transport">
+            <div class="card-photo"><img src="transport-dog.jpg" alt="French bulldog in a yellow hoodie"></div>
+            <h3>Transport</h3>
+            <p>Need a ride to the groomer or a friend's place? Volunteers with a car can help.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS (steps numbered by a CSS counter) ===== -->
+    <section class="section section-white">
+      <div class="container center">
+        <span class="eyebrow">How it works</span>
+        <h2>Four simple steps</h2>
+        <p class="section-intro">From "I need help" to a happy pet.</p>
+        <div class="grid steps">
+          <article class="card step">
+            <h3>Create a pet profile</h3>
+            <p>Add your pet's species, age, area and any special notes.</p>
+          </article>
+          <article class="card step">
+            <h3>Post a request</h3>
+            <p>Choose the help you need and schedule a date and time.</p>
+          </article>
+          <article class="card step">
+            <h3>Get matched</h3>
+            <p>We suggest verified volunteers in your area who offer that service.</p>
+          </article>
+          <article class="card step">
+            <h3>Rate &amp; stay safe</h3>
+            <p>Rate the volunteer after the job. Report or block anyone, anytime.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TOP VOLUNTEERS (cards generated by script.js) ===== -->
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow">Community</span>
+        <h2>Top-rated volunteers</h2>
+        <p class="section-intro">Every volunteer is checked by our admin team before appearing here.</p>
+        <div class="grid" id="top-volunteers">
+          <!-- volunteer cards are inserted here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CALL TO ACTION band ===== -->
+    <section class="section" style="padding-top:0;">
+      <div class="container">
+        <div class="cta">
+          <div class="cta-text">
+            <h2>Love animals? Lend a hand.</h2>
+            <p>Join PawPals as a volunteer. Help when it suits you, in your own neighbourhood.</p>
+            <a href="volunteers.html" class="btn btn-accent">Sign up to volunteer</a>
+          </div>
+          <img src="cat.jpg" alt="Curious cat looking at the camera">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ using <details> / <summary> (Unit 2) ===== -->
+    <section class="section section-white">
+      <div class="container">
+        <span class="eyebrow">Questions</span>
+        <h2>Frequently asked questions</h2>
+        <details>
+          <summary>Is PawPals free?</summary>
+          <p>Yes. It is a community network run by volunteers.</p>
+        </details>
+        <details>
+          <summary>How are volunteers verified?</summary>
+          <p>An admin checks each new volunteer profile before it becomes visible or can be matched.</p>
+        </details>
+        <details>
+          <summary>Can I get medical help for my pet here?</summary>
+          <p>No. PawPals is only for non-medical help. Please contact a registered vet for health issues.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER (same on every page) ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div>
+        <h4>PawPals</h4>
+        <p>Local Pet Assistance Network<br>&copy; <span id="year">2026</span> Pixel Pioneers</p>
+      </div>
+      <div>
+        <h4>Team Pixel Pioneers · K3P26YG</h4>
+        <ul>
+          <li>Prince Saini – 12625059</li>
+          <li>Bhumi – 12629711</li>
+          <li>Subham Mahapatra – 12620150</li>
+        </ul>
+      </div>
+      <address>
+        <h4>Contact</h4>
+        <a href="mailto:help@pawpals.example">help@pawpals.example</a>
+      </address>
+    </div>
+  </footer>
+
+  <!-- JavaScript loaded last so the HTML exists before it runs -->
+  <script src="script.js"></script>
+</body>
+</html>

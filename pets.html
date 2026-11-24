@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!-- =====================================================================
+     Page  : pets.html  –  PET PROFILES
+     Left  : form to add a pet profile
+     Right : search box + list of pet cards (built by script.js → section 5)
+     ===================================================================== -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Profiles – PawPals</title>
+  <!-- Google Font "Poppins" (falls back to Arial when offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="pets">
+
+  <!-- ===== HEADER (same on every page; "active" class moves) ===== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">Paw<span>Pals</span></a>
+      <nav aria-label="Main menu">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pets.html" class="active">Pets</a></li>
+          <li><a href="requests.html">Requests</a></li>
+          <li><a href="volunteers.html">Volunteers</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Banner photo is chosen by the "banner-pets" class in style.css -->
+    <section class="page-banner banner-pets">
+      <div class="container">
+        <h1>Pet profiles</h1>
+        <p>Add your pet once, then request help for them any time.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container two-col">
+
+        <!-- ===== ADD-PET FORM =====
+             "required" makes the browser check the field before submit.
+             The id on each input is used by script.js to read the value. -->
+        <form id="pet-form" class="form-card">
+          <h3>Add a pet</h3>
+
+          <fieldset>
+            <legend>About the pet</legend>
+
+            <div class="form-group">
+              <label for="pet-name" class="required">Pet name</label>
+              <input type="text" id="pet-name" placeholder="e.g. Bruno" required maxlength="30">
+            </div>
+
+            <div class="form-group">
+              <label for="pet-species" class="required">Species</label>
+              <select id="pet-species" required>
+                <option>Dog</option>
+                <option>Cat</option>
+                <option>Bird</option>
+                <option>Rabbit</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="pet-breed">Breed</label>
+              <input type="text" id="pet-breed" placeholder="e.g. Labrador">
+            </div>
+
+            <div class="form-group">
+              <label for="pet-age" class="required">Age (years)</label>
+              <input type="number" id="pet-age" min="0" max="30" value="1" required>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Owner</legend>
+
+            <div class="form-group">
+              <label for="pet-owner" class="required">Owner name</label>
+              <input type="text" id="pet-owner" required>
+            </div>
+
+            <div class="form-group">
+              <label for="pet-area" class="required">Area</label>
+              <!-- options are added by script.js from the AREAS array -->
+              <select id="pet-area" required></select>
+            </div>
+
+            <div class="form-group">
+              <label for="pet-notes">Care notes</label>
+              <textarea id="pet-notes" rows="3" placeholder="Feeding times, temperament, etc."></textarea>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn">Save pet profile</button>
+          <p id="pet-msg" class="form-msg" role="status"></p>
+        </form>
+
+        <!-- ===== PET LIST ===== -->
+        <div>
+          <div class="toolbar">
+            <label for="pet-search"><strong>Search:</strong></label>
+            <input type="search" id="pet-search" placeholder="Name, species or area" style="max-width:280px;">
+          </div>
+          <div id="pet-list" class="grid">
+            <!-- pet cards are inserted here by renderPets() -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER (same on every page) ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div>
+        <h4>PawPals</h4>
+        <p>Local Pet Assistance Network<br>&copy; <span id="year">2026</span> Pixel Pioneers</p>
+      </div>
+      <div>
+        <h4>Team Pixel Pioneers · K3P26YG</h4>
+        <ul>
+          <li>Prince Saini – 12625059</li>
+          <li>Bhumi – 12629711</li>
+          <li>Subham Mahapatra – 12620150</li>
+        </ul>
+      </div>
+      <address>
+        <h4>Contact</h4>
+        <a href="mailto:help@pawpals.example">help@pawpals.example</a>
+      </address>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

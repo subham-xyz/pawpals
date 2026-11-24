@@ -1,0 +1,740 @@
+/* =====================================================================
+   PawPals – Local Pet Assistance Network
+   File   : style.css  (ONE stylesheet shared by every page)
+   Team   : Pixel Pioneers (K3P26YG) – CSE326 Internet Programming
+   ---------------------------------------------------------------------
+   HOW THIS FILE IS ORGANISED (search for the numbers to jump around)
+     1. CSS Variables (change colours/fonts for the WHOLE site here)
+     2. Reset & base typography
+     3. Header + navigation (Flexbox, position: sticky)
+     4. Buttons (pseudo-classes :hover :focus, transitions)
+     5. Hero section (home page) + page banners (background images)
+     6. Cards & grids (CSS Grid, box model, box-shadow, images)
+     7. Badges / status labels (attribute selectors)
+     8. Forms (form styling, :focus, :user-invalid, attribute selectors)
+     9. Tables
+    10. FAQ + Footer
+    11. Animations (@keyframes)
+    12. Responsive design (@media queries)
+
+   Photos live in the  folder. To swap a photo, replace the file
+   with one of the same name, or change the path where it is used.
+   ===================================================================== */
+
+
+/* ---------- 1. CSS VARIABLES ----------------------------------------
+   Variables are declared on :root so every element can use them.
+   Want a new theme? Just change the values below.                    */
+:root {
+  --primary: #2b8a6e;        /* main teal-green – buttons, links       */
+  --primary-dark: #1f6b55;   /* darker green for hover states          */
+  --primary-light: #e3f3ee;  /* pale green backgrounds                 */
+  --accent: #f59e4b;         /* warm orange highlight                  */
+  --accent-light: #fff1e2;   /* pale orange backgrounds                */
+  --danger: #d64545;         /* red for report / block / reject        */
+  --bg: #fffaf4;             /* cream page background                  */
+  --card: #ffffff;           /* card background                        */
+  --text: #2d2a32;           /* main text colour                       */
+  --muted: #6b6672;          /* grey secondary text                    */
+  --border: #efe6da;         /* soft beige border colour               */
+  --radius: 18px;            /* rounded corners                        */
+  --shadow: 0 6px 20px rgba(60, 40, 20, 0.08);
+  --shadow-big: 0 14px 34px rgba(60, 40, 20, 0.14);
+  /* Poppins is loaded from Google Fonts in each HTML <head>.
+     If you are offline, the browser falls back to Segoe UI / Arial.  */
+  --font: "Poppins", "Segoe UI", Arial, sans-serif;
+}
+
+
+/* ---------- 2. RESET & BASE ----------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;    /* width now INCLUDES padding + border    */
+}
+
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.65;         /* unitless = 1.65 × font-size            */
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+h1, h2, h3 { line-height: 1.2; font-weight: 700; }
+h2 { font-size: 2rem; margin-bottom: 0.4rem; }
+h3 { font-size: 1.15rem; }
+
+a   { color: var(--primary); }
+img { max-width: 100%; display: block; }   /* images never overflow */
+
+/* Centres page content and limits its width */
+.container {
+  width: 90%;
+  max-width: 1120px;
+  margin: 0 auto;            /* auto left/right margin = centred       */
+}
+
+/* Every <section> gets vertical breathing room */
+.section       { padding: 4rem 0; }
+.section-white { background-color: #fff; }
+
+/* Small coloured label above section headings */
+.eyebrow {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.3rem;
+}
+
+.section-intro {
+  color: var(--muted);
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.center { text-align: center; }
+.center .section-intro { margin-left: auto; margin-right: auto; }
+
+
+/* ---------- 3. HEADER & NAVIGATION ----------------------------------
+   position: sticky keeps the header at the top while scrolling.
+   display: flex puts logo and menu on one line.                       */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;               /* stay above other content               */
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;   /* logo left, menu right           */
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.85rem 0;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* Pseudo-element ::before adds the paw icon without extra HTML */
+.logo::before { content: "🐾 "; }
+
+/* Second word of the logo in orange: <span>Pals</span> */
+.logo span { color: var(--accent); }
+
+.nav-list {
+  display: flex;
+  gap: 0.3rem;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.nav-list a {
+  display: block;
+  padding: 0.45rem 1rem;
+  color: var(--text);
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 999px;      /* pill shape                             */
+  transition: background-color 0.25s, color 0.25s;
+}
+
+.nav-list a:hover { background-color: var(--primary-light); color: var(--primary); }
+
+/* "active" class marks the page you are on */
+.nav-list a.active { background-color: var(--primary); color: #fff; }
+
+
+/* ---------- 4. BUTTONS ---------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: 0.65rem 1.4rem;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-color: var(--primary);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.25s, transform 0.15s, box-shadow 0.25s;
+}
+
+.btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(43, 138, 110, 0.3);
+}
+.btn:active        { transform: scale(0.96); }               /* pressed */
+.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Colour variations – add one extra class: class="btn btn-danger" */
+.btn-accent        { background-color: var(--accent); }
+.btn-accent:hover  { background-color: #e07f25; box-shadow: 0 6px 14px rgba(245, 158, 75, 0.35); }
+.btn-danger        { background-color: var(--danger); }
+.btn-danger:hover  { background-color: #b33434; box-shadow: none; }
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.btn-outline:hover { background-color: var(--primary); color: #fff; }
+
+.btn-small { padding: 0.35rem 0.9rem; font-size: 0.82rem; }
+
+
+/* ---------- 5. HERO + PAGE BANNERS ----------------------------------- */
+
+/* HOME HERO: two columns – text on the left, photo on the right */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0 5rem;
+  background: linear-gradient(180deg, var(--accent-light), var(--bg));
+}
+
+/* Big soft circle behind the photo (pure decoration with ::before) */
+.hero::before {
+  content: "";
+  position: absolute;
+  right: -120px;
+  top: -80px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+}
+
+.hero .container {
+  position: relative;        /* sits above the circle                  */
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-pill {
+  display: inline-block;
+  background-color: #fff;
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.2rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: fadeUp 0.8s ease-out;        /* defined in section 11   */
+}
+
+/* Highlighted word with an orange underline-marker */
+.hero h1 mark {
+  background: linear-gradient(transparent 62%, #ffd5a8 62%);
+  color: var(--primary);
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 1.08rem;
+  margin-bottom: 1.8rem;
+  max-width: 520px;
+}
+
+.hero-buttons { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+
+.hero-note {
+  margin-top: 1.4rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* The photo frame */
+.hero-photo {
+  position: relative;
+  animation: fadeUp 1s ease-out;
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 460px;
+  object-fit: cover;         /* fill the box without stretching        */
+  border-radius: 30px;
+  box-shadow: var(--shadow-big);
+  border: 6px solid #fff;
+}
+
+/* Little floating card on top of the photo (absolute positioning) */
+.float-card {
+  position: absolute;
+  left: -30px;
+  bottom: 30px;
+  background-color: #fff;
+  padding: 0.7rem 1rem;
+  border-radius: 14px;
+  box-shadow: var(--shadow-big);
+  font-size: 0.88rem;
+  animation: float 3s ease-in-out infinite;
+}
+.float-card strong { color: var(--primary); display: block; }
+
+/* INNER PAGE BANNER: photo background + dark green overlay.
+   The gradient is drawn ON TOP of the photo so white text is readable.
+   Each page adds one extra class to choose its photo.                 */
+.page-banner {
+  color: #fff;
+  padding: 4rem 0;
+  background-size: cover;
+  background-position: center;
+}
+.page-banner h1 { font-size: 2.4rem; }
+.page-banner p  { opacity: 0.92; max-width: 560px; }
+
+.banner-pets {
+  background-image: linear-gradient(90deg, rgba(31,107,85,0.95), rgba(31,107,85,0.4)),
+                    url("walking-dog.jpg");
+  background-position: center 20%;        /* show the face, not the nose */
+}
+.banner-requests {
+  background-image: linear-gradient(90deg, rgba(31,107,85,0.95), rgba(31,107,85,0.4)),
+                    url("transport-dog.jpg");
+  background-position: center 55%;       /* show the face, not just ears */
+}
+.banner-volunteers {
+  background-image: linear-gradient(90deg, rgba(31,107,85,0.95), rgba(31,107,85,0.4)),
+                    url("hero-dog.jpg");
+  background-position: center 35%;
+}
+.banner-admin {
+  background-image: linear-gradient(90deg, rgba(45,42,50,0.95), rgba(45,42,50,0.45)),
+                    url("cat.jpg");
+}
+
+
+/* ---------- 6. CARDS & GRIDS ----------------------------------------
+   CSS Grid: auto-fit + minmax() creates as many columns as fit,
+   so the layout is responsive WITHOUT media queries.                  */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.4rem;
+}
+
+/* Box model in action: padding (inside), border, margin (outside) */
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s, box-shadow 0.25s;
+  animation: fadeUp 0.5s ease-out;
+  overflow: hidden;          /* keeps the photo inside rounded corners */
+}
+
+.card:hover {
+  transform: translateY(-5px);            /* lift effect on hover   */
+  box-shadow: var(--shadow-big);
+}
+
+.card h3 { margin-bottom: 0.3rem; }
+.card p  { color: var(--muted); font-size: 0.92rem; }
+
+.card .card-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+/* Photo at the top of a card. Negative margins cancel the card's
+   padding so the photo touches the card edges.                        */
+.card-photo {
+  margin: -1.3rem -1.3rem 1rem;
+  height: 190px;
+  overflow: hidden;
+}
+.card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+.card:hover .card-photo img { transform: scale(1.06); }   /* zoom   */
+
+/* Used when a pet has no photo – shows a big emoji instead */
+.photo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  background: linear-gradient(135deg, var(--accent-light), var(--primary-light));
+}
+
+/* Round initials avatar for volunteers, e.g. "AM" */
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary), #4fb393);
+  margin-bottom: 0.8rem;
+  box-shadow: 0 4px 10px rgba(43, 138, 110, 0.3);
+}
+
+/* SERVICE cards on the home page (photo + text) */
+.service-card .card-photo { height: 220px; }
+.service-card h3::before { margin-right: 0.3rem; }
+.service-card.walk h3::before      { content: "🦮"; }
+.service-card.foster h3::before    { content: "🏡"; }
+.service-card.transport h3::before { content: "🚗"; }
+
+/* "How it works" steps – numbered automatically with a CSS counter */
+.steps { counter-reset: step; }
+.step  { counter-increment: step; text-align: center; }
+.step::before {
+  content: counter(step);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--accent-light);
+  color: var(--accent);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  border: 2px dashed var(--accent);
+}
+
+/* Statistic strip on the home page */
+.stats {
+  margin-top: -2.5rem;       /* overlaps the hero a little             */
+  position: relative;
+}
+.stat { text-align: center; padding: 1.5rem 1rem; }
+.stat strong {
+  display: block;
+  font-size: 2.3rem;
+  color: var(--primary);
+  line-height: 1.1;
+}
+.stat span { color: var(--muted); font-size: 0.9rem; }
+
+/* Call-to-action band with the cat photo */
+.cta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow-big);
+}
+.cta-text { padding: 2.5rem; }
+.cta-text p { opacity: 0.9; margin: 0.6rem 0 1.4rem; }
+.cta img { height: 100%; min-height: 300px; object-fit: cover; }
+
+/* Two-column layout: form on the left, list on the right */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Toolbar above lists (search box, filters) */
+.toolbar {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  background-color: #fff;
+  padding: 0.8rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+
+.empty-msg {
+  color: var(--muted);
+  font-style: italic;
+  padding: 1rem 0;
+}
+
+
+/* ---------- 7. BADGES ------------------------------------------------
+   ATTRIBUTE SELECTORS pick the colour from the data-status attribute:
+   <span class="badge" data-status="Open">Open</span>                  */
+.badge {
+  display: inline-block;
+  padding: 0.18rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  vertical-align: middle;
+  background-color: #eee;
+  color: var(--text);
+}
+.badge[data-status="Open"]      { background-color: #fff4d6; color: #8a5a00; }
+.badge[data-status="Accepted"]  { background-color: #ddeeff; color: #1e4f85; }
+.badge[data-status="Completed"] { background-color: #d9f5e8; color: #1f6b55; }
+.badge[data-status="verified"]  { background-color: #d9f5e8; color: #1f6b55; }
+.badge[data-status="pending"]   { background-color: #fff4d6; color: #8a5a00; }
+.badge[data-status="rejected"],
+.badge[data-status="blocked"]   { background-color: #fde2e2; color: #9b2c2c; }
+
+.tag {
+  display: inline-block;
+  margin: 0.3rem 0.3rem 0 0;
+  padding: 0.15rem 0.65rem;
+  background-color: var(--primary-light);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--primary-dark);
+}
+
+.stars { color: var(--accent); letter-spacing: 1px; }
+
+
+/* ---------- 8. FORMS -------------------------------------------------- */
+.form-card {
+  background-color: var(--card);
+  padding: 1.8rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  border-top: 6px solid var(--accent);
+  position: sticky;          /* form stays visible while list scrolls  */
+  top: 90px;
+}
+
+.form-card h3 { margin-bottom: 1.2rem; font-size: 1.35rem; }
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.9rem 1rem 0.2rem;
+  margin-bottom: 1rem;
+}
+
+legend { padding: 0 0.4rem; font-weight: 600; color: var(--primary); }
+
+/* Each label + input pair is wrapped in .form-group */
+.form-group { margin-bottom: 0.9rem; }
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+.form-group small { color: var(--muted); }
+
+/* Attribute selectors target only certain input types */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="search"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.93rem;
+  background-color: #fffdfa;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Checkboxes take the theme colour */
+input[type="checkbox"] { accent-color: var(--primary); }
+
+/* :focus – highlight the field the user is typing in */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(43, 138, 110, 0.15);
+}
+
+/* :user-invalid shows red ONLY after the user has touched the field */
+input:user-invalid,
+textarea:user-invalid {
+  border-color: var(--danger);
+}
+
+/* Checkbox list displayed in a row */
+.check-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin-bottom: 0.7rem;
+}
+.check-row label { font-weight: normal; font-size: 0.92rem; }
+
+/* Small message under a form after submitting */
+.form-msg {
+  margin-top: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Required-field star using ::after */
+.required::after {
+  content: " *";
+  color: var(--danger);
+}
+
+
+/* ---------- 9. TABLES ------------------------------------------------- */
+.table-wrap { overflow-x: auto; }   /* scroll sideways on phones       */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--card);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+caption {
+  text-align: left;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 0.5rem 0;
+}
+
+th, td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+th {
+  background-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* :nth-child(even) gives zebra stripes */
+tbody tr:nth-child(even) { background-color: #fffaf4; }
+tbody tr:hover           { background-color: var(--primary-light); }
+
+td small  { color: var(--muted); }
+td select { width: auto; min-width: 150px; margin: 0.2rem 0.3rem 0.2rem 0; }
+
+/* Small round pet photo inside the table */
+.thumb {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  border: 2px solid var(--primary-light);
+}
+
+
+/* ---------- 10. FAQ + FOOTER ------------------------------------------ */
+/* FAQ – <details>/<summary> accordion on the home page */
+details {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.7rem;
+  transition: box-shadow 0.25s;
+}
+details:hover    { box-shadow: var(--shadow); }
+summary          { font-weight: 600; cursor: pointer; }
+details[open] summary { color: var(--primary); margin-bottom: 0.4rem; }
+details p        { color: var(--muted); }
+
+.site-footer {
+  background-color: #23302b;
+  color: #c9d6d0;
+  padding: 2.5rem 0;
+  margin-top: 3rem;
+  font-size: 0.9rem;
+}
+
+.site-footer .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.site-footer h4      { color: #fff; margin-bottom: 0.4rem; }
+.site-footer ul      { list-style: none; }
+.site-footer address { font-style: normal; }   /* browsers italicise it by default */
+.site-footer a       { color: #8fe0c3; }
+
+
+/* ---------- 11. ANIMATIONS ------------------------------------------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Gentle up-and-down bob for the floating card on the hero photo */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+
+/* ---------- 12. RESPONSIVE DESIGN ------------------------------------
+   Below 900px (tablets/phones) two-column layouts stack.               */
+@media (max-width: 900px) {
+  .hero .container,
+  .two-col,
+  .cta { grid-template-columns: 1fr; }
+
+  .hero h1         { font-size: 2.2rem; }
+  .hero-photo img  { height: 340px; }
+  .float-card      { left: 12px; }
+  .form-card       { position: static; }        /* no sticky on phones */
+  .site-header .container { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  h2 { font-size: 1.5rem; }
+  .nav-list a { padding: 0.35rem 0.6rem; font-size: 0.85rem; }
+  .page-banner h1 { font-size: 1.8rem; }
+}

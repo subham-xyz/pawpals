@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- =====================================================================
+     Page  : volunteers.html  –  VOLUNTEER PROFILES
+     Left  : sign-up form (new volunteers start as "pending")
+     Right : filters + verified volunteer cards with Report / Block
+     Logic lives in script.js → section 6.
+     ===================================================================== -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volunteers – PawPals</title>
+  <!-- Google Font "Poppins" (falls back to Arial when offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="volunteers">
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">Paw<span>Pals</span></a>
+      <nav aria-label="Main menu">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pets.html">Pets</a></li>
+          <li><a href="requests.html">Requests</a></li>
+          <li><a href="volunteers.html" class="active">Volunteers</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Banner photo is chosen by the "banner-volunteers" class in style.css -->
+    <section class="page-banner banner-volunteers">
+      <div class="container">
+        <h1>Volunteers</h1>
+        <p>Animal lovers in your neighbourhood, checked by our admin team.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container two-col">
+
+        <!-- ===== SIGN-UP FORM ===== -->
+        <form id="vol-form" class="form-card">
+          <h3>Become a volunteer</h3>
+
+          <div class="form-group">
+            <label for="vol-name" class="required">Full name</label>
+            <input type="text" id="vol-name" required minlength="3">
+          </div>
+
+          <div class="form-group">
+            <label for="vol-email" class="required">Email</label>
+            <input type="email" id="vol-email" placeholder="you@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="vol-phone">Phone</label>
+            <!-- pattern = exactly 10 digits -->
+            <input type="tel" id="vol-phone" pattern="[0-9]{10}" placeholder="10-digit number">
+          </div>
+
+          <div class="form-group">
+            <label for="vol-area" class="required">Area</label>
+            <select id="vol-area" required></select>
+          </div>
+
+          <fieldset>
+            <legend>Services you can offer</legend>
+            <!-- checkboxes are built by script.js from the SERVICES array -->
+            <div id="vol-services" class="check-row"></div>
+          </fieldset>
+
+          <div class="form-group">
+            <label for="vol-about">About you</label>
+            <textarea id="vol-about" rows="3" placeholder="Experience with pets, availability…"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label><input type="checkbox" required> I agree to the community safety rules.</label>
+          </div>
+
+          <button type="submit" class="btn">Submit for verification</button>
+          <p id="vol-msg" class="form-msg" role="status"></p>
+        </form>
+
+        <!-- ===== VOLUNTEER LIST ===== -->
+        <div>
+          <div class="toolbar">
+            <label for="vol-filter-area"><strong>Area:</strong></label>
+            <select id="vol-filter-area" style="width:auto;">
+              <option>All</option>
+            </select>
+
+            <label for="vol-filter-service"><strong>Service:</strong></label>
+            <select id="vol-filter-service" style="width:auto;">
+              <option>All</option>
+              <option>Walking</option>
+              <option>Fostering</option>
+              <option>Transport</option>
+              <option>Pet Sitting</option>
+            </select>
+          </div>
+
+          <div id="vol-list" class="grid">
+            <!-- volunteer cards inserted by renderVolunteers() -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div>
+        <h4>PawPals</h4>
+        <p>Local Pet Assistance Network<br>&copy; <span id="year">2026</span> Pixel Pioneers</p>
+      </div>
+      <div>
+        <h4>Team Pixel Pioneers · K3P26YG</h4>
+        <ul>
+          <li>Prince Saini – 12625059</li>
+          <li>Bhumi – 12629711</li>
+          <li>Subham Mahapatra – 12620150</li>
+        </ul>
+      </div>
+      <address>
+        <h4>Contact</h4>
+        <a href="mailto:help@pawpals.example">help@pawpals.example</a>
+      </address>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- =====================================================================
+     Page  : admin.html  –  ADMIN VERIFICATION
+     Admin can verify / reject volunteers, see report counts, unblock,
+     and reset the demo data. Logic lives in script.js → section 8.
+     (A real site would protect this page with a login.)
+     ===================================================================== -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – PawPals</title>
+  <!-- Google Font "Poppins" (falls back to Arial when offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="admin">
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">Paw<span>Pals</span></a>
+      <nav aria-label="Main menu">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pets.html">Pets</a></li>
+          <li><a href="requests.html">Requests</a></li>
+          <li><a href="volunteers.html">Volunteers</a></li>
+          <li><a href="admin.html" class="active">Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Banner photo is chosen by the "banner-admin" class in style.css -->
+    <section class="page-banner banner-admin">
+      <div class="container">
+        <h1>Admin panel</h1>
+        <p>Verify new volunteers and review reports to keep the community safe.</p>
+      </div>
+    </section>
+
+    <!-- ===== SUMMARY CARDS ===== -->
+    <section class="section" style="padding-bottom:1rem;">
+      <div class="container grid">
+        <div class="card stat"><strong id="admin-pending">0</strong>Waiting for verification</div>
+        <div class="card stat"><strong id="admin-reported">0</strong>Volunteers with reports</div>
+        <div class="card stat">
+          <p style="margin-bottom:0.6rem;">Testing? Restore the original demo data.</p>
+          <button class="btn btn-outline" onclick="resetDemoData()">Reset demo data</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VERIFICATION TABLE ===== -->
+    <section class="section" style="padding-top:1rem;">
+      <div class="container table-wrap">
+        <table>
+          <caption>All volunteer profiles</caption>
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Area</th>
+              <th scope="col">Services</th>
+              <th scope="col">Status</th>
+              <th scope="col">Reports</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-table-body">
+            <!-- rows inserted by renderAdmin() -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div>
+        <h4>PawPals</h4>
+        <p>Local Pet Assistance Network<br>&copy; <span id="year">2026</span> Pixel Pioneers</p>
+      </div>
+      <div>
+        <h4>Team Pixel Pioneers · K3P26YG</h4>
+        <ul>
+          <li>Prince Saini – 12625059</li>
+          <li>Bhumi – 12629711</li>
+          <li>Subham Mahapatra – 12620150</li>
+        </ul>
+      </div>
+      <address>
+        <h4>Contact</h4>
+        <a href="mailto:help@pawpals.example">help@pawpals.example</a>
+      </address>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
