@@ -49,16 +49,3 @@ Plain **HTML, CSS and JavaScript**, with no frameworks and no server.
 - **JavaScript (Unit IV):** arrays of objects, functions, conditionals, array methods, events
 
 Data is saved in the browser with `localStorage`. Use **Admin → Reset demo data** to start over.
-
-## Run it locally
-Download the project and double-click `index.html`.
-
-## Publish with GitHub Pages
-1. In the repository, go to **Settings → Pages**.
-2. Under **Build and deployment**, set **Source** to *Deploy from a branch*.
-3. Choose the **main** branch and the **/ (root)** folder, then click **Save**.
-4. After a minute or two the site is live at `https://<your-username>.github.io/<repository-name>/`.
-
-## Project files
-- [Explainer video (1 min)](PawPals_Explainer.mp4)
-- [Presentation (PowerPoint)](PawPals_Presentation.pptx)
